@@ -25,13 +25,13 @@ class Order(models.Model):
     )
 
     order_status = models.IntegerField(choices=STATUS_CHOICE,default=CART_STAGE)
-    owner = models.ForeignKey(Customer,on_delete=models.SET_NULL,related_name="orders")
+    owner = models.ForeignKey(Customer,on_delete=models.SET_NULL,related_name="orders",null=True)
     delete_status = models.IntegerField(choices=DELETE_CHOICES,default=LIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
 class OrderedItem(models.Model):
-    products = models.ForeignKey(Product,related_name="added_carts",on_delete=models.SET_NULL)
+    products = models.ForeignKey(Product,related_name="added_carts",on_delete=models.SET_NULL,null=True)
     quantity = models.IntegerField(default=1)
     owner = models.ForeignKey(Order,on_delete=models.CASCADE,related_name="added_items")
